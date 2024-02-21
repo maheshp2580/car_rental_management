@@ -238,7 +238,7 @@
     <div class="table-title">
       <div class="row">
         <div class="col-sm-3">
-          <h2>Manage <b>Drivers</b></h2>
+          <h2>Manage <b>Cars</b></h2>
         </div>
         <!-- <div class="col-sm-3">
 		   <form class="d-flex" role="search" action="#" th:action=@{/searchCustomer} method="post">
@@ -248,7 +248,7 @@
 		  </div> -->
 		  
         <div class="col-sm-6">
-          <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><span>Add New Driver</span></a>
+          <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><span>Add New Car</span></a>
         </div>
       </div>
     </div>
@@ -256,34 +256,38 @@
       <thead>
         <tr>
            <th>Name</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Number of Years Experience</th>
-          <th>Rating</th>
-          <th>Is Available</th>
+           <th>Number Plate</th>
+          <th>Description</th>
+          <th>Company</th>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Number of Seats</th>
           <th>Price Per Day</th>
+          <th>Is Available</th>
          
         </tr>
       </thead>
       <tbody>
-      <th:block th:each="driver : ${drivers}">
+      <th:block th:each="car : ${cars}">
         <tr> 
-          <td th:text="${driver.name}"></td>
-          <td th:text="${driver.age}"></td>
-          <td th:text="${driver.gender}"></td>
-          <td th:text="${driver.noOfYearsExperience}"></td>
-          <td th:text="${driver.rating}"></td>
-          <td th:text="${driver.isAvailable}"></td>
-          <td th:text="${driver.pricePerDay}"></td>
+          <td th:text="${car.name}"></td>
+          <td th:text="${car.numberPlate}"></td>
+          <td th:text="${car.description}"></td>
+          <td th:text="${car.company}"></td>
+          <td th:text="${car.model}"></td>
+          <td th:text="${car.type}"></td>
+          <td th:text="${car.noOfSeats}"></td>
+          <td th:text="${car.pricePerDay}"></td>
+          <td th:text="${car.isAvailable}"></td>
          
           <td>
-          <a th:href="@{'/editDriver/' + ${driver.Id}}" class="btn btn-success"><span>Edit</span></a>
+          <a th:href="@{'/editCar/' + ${car.Id}}" class="btn btn-success"><span>Edit</span></a>
           
            
           
           </td>
           <td>
-          <form action="#" th:action="@{'/deleteDriver/' + ${driver.Id}}" method="post">
+          <form action="#" th:action="@{'/deleteCar/' + ${car.Id}}" method="post">
 			  <button type="submit" class="btn btn-danger">
 	  			Delete
 			 </button>
@@ -300,9 +304,9 @@
 <div id="addEmployeeModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="#" th:action=@{/saveDriver} th:object="${driver}" method="post" enctype="multipart/form-data">
+      <form action="#" th:action=@{/saveCar} th:object="${car}" method="post" enctype="multipart/form-data">
         <div class="modal-header">
-          <h4 class="modal-title">Add Driver</h4>
+          <h4 class="modal-title">Add Car</h4>
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body">
@@ -310,26 +314,52 @@
 	      <label for="name">Name</label>
 	      <input class="form-control" id="name" type="text" name="name">
 	    </div>
+	    <div class="modal-body">
+          <div class="form-group">
+	      <label for="numberPlate">Number Plate</label>
+	      <input class="form-control" id="numberPlate" type="text" name="numberPlate">
+	    </div>
 	    <div class="form-group">
-	      <label for="description">Age</label>
-	      <input class="form-control" id="description" type="number" name="age"></input>
+	      <label for="description">Description</label>
+	      <textarea class="form-control" id="description" type="text" name="description"></textarea>
 	    </div>
 	     <div class="form-group">
-	     	<label for="gender">Gender</label>
-		     <select th:field="*{gender}" class="form-control" required>
-		     <option th:value="null">Select Gender</option>
-		    <option th:value="male">Male</option>
-		    <option th:value="female">Female</option>
+	     	<label for="category">Company</label>
+		     <select th:field="*{company}" class="form-control" required>
+		     <option th:value="null">Select Compamy</option>
+		    <option th:value="tata">Tata</option>
+		    <option th:value="suzuki">Suzuki</option>
+		    <option th:value="hyundai">Hyundai</option>
+		    <option th:value="renault">Renault</option>
+		    <option th:value="mahendra">Mahendra</option>
+		    <option th:value="mg">MG</option>
+		    <option th:value="toyota">Toyota</option>
+		    <option th:value="benz">Benz</option>
+		    <option th:value="audi">Audi</option>
+		    <option th:value="bmw">BMW</option>
 		    
 		    </select>
 		  </div>
 		  
 		   <div class="form-group">
-	      <label for="model">Number Of Year Experience</label>
-	      <input class="form-control" id="noOfYearsExperience" type="number" name="noOfYearsExperience">
+	      <label for="model">Model</label>
+	      <input class="form-control" id="model" type="text" name="model">
 	    </div>
 		  
-		   
+		   <div class="form-group">
+	     	<label for="type">Type</label>
+		     <select th:field="*{type}" class="form-control" required>
+		     <option th:value="null">Select Type</option>
+		    <option th:value="gear">Gear</option>
+		    <option th:value="auto">Auto</option>
+		     <option th:value="electric">Electric</option>
+		    </select>
+		  </div>
+		  
+		  <div class="form-group">
+	     	<label for="noofseats">Number of Seats</label>
+		     <input class="form-control" id="noofseats" type="number" name="noOfSeats">
+		  </div>
 		  
 		  <div class="form-group">
 	     	<label for="price">Price Per Day</label>
@@ -346,7 +376,7 @@
 		  </div>
 	      
        <div class="form-group">
-    <label>Driver Photo</label>
+    <label>Car Photo</label>
       <input type="file" class="form-control" name="image" accept="image/png, image/jpeg"/>
     </div><br>
 	   

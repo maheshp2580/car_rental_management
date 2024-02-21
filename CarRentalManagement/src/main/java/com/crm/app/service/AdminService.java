@@ -3,7 +3,9 @@ package com.crm.app.service;
 import java.util.List;
 
 import com.crm.app.model.BookCar;
+import com.crm.app.model.BookDriver;
 import com.crm.app.model.Car;
+import com.crm.app.model.Driver;
 
 
 
@@ -20,8 +22,6 @@ public interface AdminService {
 
 	int updateCar(Car car);
 
-<<<<<<< Updated upstream
-=======
 	void saveDriver(Driver driver);
 
 	Driver getDriverById(Long id);
@@ -36,7 +36,10 @@ public interface AdminService {
 
 	void confirmCarBooking(Long id);
 
->>>>>>> Stashed changes
+	List<BookDriver> getAllDriverBookings();
+
+	void confirmDriverBooking(Long id);
+
 
 	
 

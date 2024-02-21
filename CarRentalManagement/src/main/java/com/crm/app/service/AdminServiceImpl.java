@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crm.app.dao.BookCarRepo;
+import com.crm.app.dao.BookDriverRepo;
 import com.crm.app.dao.CarRepo;
-<<<<<<< Updated upstream
-=======
 import com.crm.app.dao.DriverRepo;
 import com.crm.app.model.BookCar;
->>>>>>> Stashed changes
+import com.crm.app.model.BookDriver;
 import com.crm.app.model.Car;
+import com.crm.app.model.Driver;
 
 
 
@@ -24,15 +24,15 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private CarRepo carRepo;
 	
-<<<<<<< Updated upstream
-=======
 	@Autowired
 	private DriverRepo driverRepo;
 	
 	@Autowired
 	private BookCarRepo bookCarRepo;
 	
->>>>>>> Stashed changes
+	@Autowired
+	private BookDriverRepo bookDriverRepo;
+	
 	
 
 	@Override
@@ -84,8 +84,6 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 
-<<<<<<< Updated upstream
-=======
 	@Override
 	public void saveDriver(Driver driver) {
 		// TODO Auto-generated method stub
@@ -132,7 +130,20 @@ public class AdminServiceImpl implements AdminService{
 		bookCarRepo.save(bookCar);
 	}
 
->>>>>>> Stashed changes
+	@Override
+	public List<BookDriver> getAllDriverBookings() {
+		// TODO Auto-generated method stub
+		return bookDriverRepo.findAll();
+	}
+
+	@Override
+	public void confirmDriverBooking(Long id) {
+		// TODO Auto-generated method stub
+		BookDriver bookDriver = bookDriverRepo.findBookDriverById(id);
+		bookDriver.setStatus("confirmed");
+		bookDriverRepo.save(bookDriver);
+	}
+
 	
 
 }
