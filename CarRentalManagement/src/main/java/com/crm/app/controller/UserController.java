@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crm.app.model.BookCar;
 import com.crm.app.model.Car;
-<<<<<<< Updated upstream
-=======
 import com.crm.app.model.Driver;
 import com.crm.app.model.Payment;
->>>>>>> Stashed changes
 import com.crm.app.model.User;
 import com.crm.app.service.AdminService;
 import com.crm.app.service.UserService;
@@ -30,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	
 
@@ -52,8 +52,6 @@ public class UserController {
 		return "user/userwelcome";
 	}
 	
-<<<<<<< Updated upstream
-=======
 	@GetMapping("/drivers")
 	public String viewDrivers(@ModelAttribute("user") User user, Model model, HttpSession session)
 	{
@@ -71,27 +69,6 @@ public class UserController {
         model.addAttribute("drivers", driverList);
 
 		return "user/drivers";
-	}
-	
-	@GetMapping("/myCarBookings")
-	public String userCarBookings(@ModelAttribute("user") User user, Model model, HttpSession session)
-	{
-		@SuppressWarnings("unchecked")
-        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
-
-		if(messages == null) {
-			model.addAttribute("errormsg", "Session Expired. Please Login Again");
-			return "home/error";
-		}
-        model.addAttribute("sessionMessages", messages);
-    	User userdata = userService.findUser(messages.get(0));
-        model.addAttribute("sessionMessages", messages);
-        
-        List<BookCar> userCarBookings = userService.getUserCarBookings(userdata.getEmail());
-        
-        model.addAttribute("bookings", userCarBookings);
-
-		return "user/usercarbookings";
 	}
 	
 	@PostMapping("/applyFilters")
@@ -136,7 +113,6 @@ public class UserController {
 		
 		return "user/bookcar";
 	}
->>>>>>> Stashed changes
 	
 	@PostMapping("/saveCarBooking")
 	public String saveCarBooking(@ModelAttribute("bookcar") BookCar bookcar, Model model, HttpSession session) {
