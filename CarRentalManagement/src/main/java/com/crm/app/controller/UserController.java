@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crm.app.model.Car;
-import com.crm.app.model.Driver;
 import com.crm.app.model.User;
 import com.crm.app.service.AdminService;
 import com.crm.app.service.UserService;
@@ -33,9 +32,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private AdminService adminService;
 	
 	
 
@@ -55,43 +51,6 @@ public class UserController {
         
         model.addAttribute("cars", carList);
 
-		return "user/userwelcome";
-	}
-	
-	@GetMapping("/drivers")
-	public String viewDrivers(@ModelAttribute("user") User user, Model model, HttpSession session)
-	{
-		@SuppressWarnings("unchecked")
-        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
-
-		if(messages == null) {
-			model.addAttribute("errormsg", "Session Expired. Please Login Again");
-			return "home/error";
-		}
-        model.addAttribute("sessionMessages", messages);
-        
-        List<Driver> driverList = adminService.getAllDrivers();
-        
-        model.addAttribute("drivers", driverList);
-
-		return "user/drivers";
-	}
-	
-	@PostMapping("/applyFilters")
-	public String applyFilters(Model model, HttpSession session, @RequestParam("company") String company,
-			 @RequestParam("type") String type, @RequestParam("seats") String seats) {
-		@SuppressWarnings("unchecked")
-        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
-
-		if(messages == null) {
-			model.addAttribute("errormsg", "Session Expired. Please Login Again");
-			return "home/error";
-		}
-		User userdata = userService.findUser(messages.get(0));
-        model.addAttribute("sessionMessages", messages);
-        List<Car> carList = userService.filterCars(company,type, seats);
-        System.out.println("Length"+carList.size()+company+type+seats);
-        model.addAttribute("cars", carList);
 		return "user/userwelcome";
 	}
 	

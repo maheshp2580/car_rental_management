@@ -3,7 +3,6 @@ package com.crm.app.service;
 import java.util.List;
 
 import com.crm.app.model.Car;
-import com.crm.app.model.Driver;
 
 
 
@@ -19,16 +18,6 @@ public interface AdminService {
 	Car getCarById(Long id);
 
 	int updateCar(Car car);
-
-	void saveDriver(Driver driver);
-
-	Driver getDriverById(Long id);
-
-	void updateDriver(Driver driver);
-
-	void deleteDriver(Long id);
-
-	List<Driver> getAllDrivers();
 
 
 	

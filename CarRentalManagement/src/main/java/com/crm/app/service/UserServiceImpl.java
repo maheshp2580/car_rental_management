@@ -145,49 +145,4 @@ public class UserServiceImpl implements UserService{
 		return carRepo.findAll();
 	}
 
-	
-	@Override
-	public List<Car> filterCars(String company, String type, String seats) {
-		
-		if(company.isEmpty() && type.isEmpty() && seats.isEmpty()) {
-			return  carRepo.findAll();
-		}
-		
-		List<Car> cars = carRepo.findAll();
-		List<Car> filteredCars = new ArrayList<Car>();
-		
-		if(!company.isEmpty() && type.isEmpty() && seats.isEmpty()) {
-			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company)).collect(Collectors.toList());	
-		}
-		
-		else if(company.isEmpty() && !type.isEmpty() && seats.isEmpty()) {
-			filteredCars = cars.stream().filter(car -> car.getType().equals(type)).collect(Collectors.toList());	
-		}
-		
-		else if(company.isEmpty() && type.isEmpty() && !seats.isEmpty()) {
-			filteredCars = cars.stream().filter(car -> car.getNoOfSeats().equals(seats)).collect(Collectors.toList());	
-		}
-		
-		else if(!company.isEmpty() && !type.isEmpty() && seats.isEmpty()) {
-			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company) && car.getType().equals(type)).collect(Collectors.toList());	
-		}
-		
-		else if(company.isEmpty() && !type.isEmpty() && !seats.isEmpty()) {
-			filteredCars = cars.stream().filter(car -> car.getNoOfSeats().equals(seats) && car.getType().equals(type)).collect(Collectors.toList());	
-		}
-		
-		else if(!company.isEmpty() && type.isEmpty() && !seats.isEmpty()) {
-			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company) && car.getNoOfSeats().equals(seats)).collect(Collectors.toList());	
-		}
-		else {
-			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company) && car.getType().equals(type) && car.getNoOfSeats().equals(seats)).collect(Collectors.toList());	
-		}
-		
-		 
-		
-		
-		
-		return filteredCars.stream().collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparingLong(Car::getId))),
-                ArrayList::new));
-	}
 }

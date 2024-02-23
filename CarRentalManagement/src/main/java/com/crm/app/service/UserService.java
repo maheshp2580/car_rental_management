@@ -17,12 +17,8 @@ public interface UserService {
 
 	User authenticateUser(User user);
 
-	int validatePassword(User user	, String securityQuestion, String securityAnswer);
+	int validatePassword(User user, String securityQuestion, String securityAnswer);
 
 	void saveNewPassword(User user);
-
-	void deleteUser(Long id);
-
-	List<Car> filterCars(String company, String type, String seats);
 
 }
