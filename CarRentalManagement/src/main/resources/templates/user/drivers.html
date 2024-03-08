@@ -77,7 +77,7 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/user" class="nav-item nav-link active">Home</a>
-                        <a href="/drivers" class="nav-item nav-link">Drivers</a>
+                          <a href="/drivers" class="nav-item nav-link">Drivers</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
@@ -86,77 +86,36 @@
         </div>
     </div>
     <!-- Navbar End -->
-    
-        <form class="row" action="#" th:action=@{/applyFilters} method="post">
-    <div class="container-fluid bg-white pt-3 px-lg-5">
-        <div class="row mx-n2">
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;" name="company">
-                    <option value="">Select Car Company</option>
-                     <option value="tata">Tata</option>
-				    <option value="suzuki">Suzuki</option>
-				    <option value="hyundai">Hyundai</option>
-				    <option value="renault">Renault</option>
-				    <option value="mahendra">Mahendra</option>
-				    <option value="mg">MG</option>
-				    <option value="toyota">Toyota</option>
-				    <option value="benz">Benz</option>
-				    <option value="audi">Audi</option>
-				    <option value="bmw">BMW</option>
-                </select>
-            </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;" name="type">
-                    <option value="">Select Type</option>
-			    <option value="gear">Gear</option>
-			    <option value="auto">Auto</option>
-			     <option value="electric">Electric</option>
-                </select>
-            </div>
-            
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;" name="seats">
-                    <option value="">Select Number of Seats</option>
-                    <option value="7">7</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
-            </div>
-        </div>
-    </div>
-            </form>
 
 <!-- Rent A Car Start -->
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Rent a Car</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">Rent a Driver</h1>
             <div class="row">
-             <th:block th:each="car : ${cars}">
+             <th:block th:each="driver : ${drivers}">
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" th:src="@{'data:image/jpeg;base64,' + ${car.photo}}" alt="">
-                        <h4 class="text-uppercase mb-4" th:text="${car.name}"></h4>
-                         <p class="text-uppercase mb-4" th:text="${car.description}"></p>
+                        <img class="img-fluid mb-4" th:src="@{'data:image/jpeg;base64,' + ${driver.photo}}" alt="">
+                        <h4 class="text-uppercase mb-4" th:text="${driver.name}"></h4>
+                         Age : <p class="text-uppercase mb-4" th:text="${driver.age} + ' Years'"></p>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.company}">
+                                
+                                <span>Gender : <th:block  th:text="${driver.gender}">
      						</th:block></span>
                             </div>
                             <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.type}">
-     						</th:block></span>
+                                
+                                <span>Experience : <th:block  th:text="${driver.noOfYearsExperience}">
+     						</th:block> Years</span>
                             </div>
                             <div class="px-2">
-                                <i class="fa fa-user text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.noOfSeats}">
+                                
+                                <span>Available : <th:block  th:text="${driver.isAvailable}">
      						</th:block></span>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href=""> <th:block  th:text="${car.pricePerDay}">
+                        <a class="btn btn-primary px-3" href=""> <th:block  th:text="${driver.pricePerDay}">
      						</th:block>/Day</a>
      						 <a class="btn btn-success px-3" href="">Book</a>
                     </div>
