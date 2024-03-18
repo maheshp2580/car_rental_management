@@ -1,9 +1,11 @@
 package com.crm.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,25 +17,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
-public class User {
+@Table(name = "drivers")
+public class Driver {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String email;
-	private String username;
-	private String password;
-	private String firstname;
-	private String usertype;
-	private String lastname;
-	private String mobileNumber;
-	private String doorNo;
-	private String street;
-	private String city;
-	private String zipCode;
-	private String securityQuestion;
-	private String securityAnswer;
+	private String name;
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+	private String photo;
+	private String age;
+	private String gender;
+	private String noOfYearsExperience;
+	private String rating;
+	private String isAvailable;
+	private String pricePerDay;
+	
 	
 
 }
