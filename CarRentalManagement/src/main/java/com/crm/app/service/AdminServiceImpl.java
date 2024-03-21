@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crm.app.dao.CarRepo;
+import com.crm.app.dao.DriverRepo;
 import com.crm.app.model.Car;
+import com.crm.app.model.Driver;
 
 
 
@@ -17,6 +19,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	private CarRepo carRepo;
+	
+	@Autowired
+	private DriverRepo driverRepo;
 	
 	
 
@@ -67,6 +72,38 @@ public class AdminServiceImpl implements AdminService{
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public void saveDriver(Driver driver) {
+		// TODO Auto-generated method stub
+		driverRepo.save(driver);
+	}
+
+	@Override
+	public Driver getDriverById(Long id) {
+		// TODO Auto-generated method stub
+		return driverRepo.getById(id);
+	}
+
+	@Override
+	public void updateDriver(Driver driver) {
+		// TODO Auto-generated method stub
+		driverRepo.save(driver);
+	}
+
+	@Override
+	public void deleteDriver(Long id) {
+		// TODO Auto-generated method stub
+		driverRepo.deleteById(id);
+		
+		
+	}
+
+	@Override
+	public List<Driver> getAllDrivers() {
+		// TODO Auto-generated method stub
+		return driverRepo.findAll();
 	}
 
 	

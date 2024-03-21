@@ -21,4 +21,8 @@ public interface UserService {
 
 	void saveNewPassword(User user);
 
+	void deleteUser(Long id);
+
+	List<Car> filterCars(String company, String type, String seats);
+
 }
