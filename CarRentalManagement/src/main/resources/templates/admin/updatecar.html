@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>RMS</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+ <style>
+ body {
+  background: #f7f7f7;
+}
+
+.form-box {
+  max-width: 500px;
+  margin: auto;
+  padding: 50px;
+  background: #ffffff;
+  border: 10px solid #f2f2f2;
+}
+
+h4, p {
+  text-align: center;
+}
+.form-group{
+	margin:5px;
+}
+input,textarea, .back {
+  width: 100%;
+}
+ </style>
+ </head>
+ 
+<body>
+<div class="container">
+<br>
+
+ <div class="form-box">
+  <h4>Edit Car</h4>
+  
+  <form action="#" th:action=@{/updateCar} th:object="${car}" method="post" enctype="multipart/form-data">
+         <input type="hidden" class="form-control" th:field="*{Id}" required/>
+        <div class="modal-body">
+          <div class="form-group">
+	      <label for="name">Name</label>
+	      <input class="form-control" id="name" type="text" th:value="${car.name}" name="name">
+	    </div>
+	    <div class="form-group">
+	      <label for="description">Description</label>
+	      <textarea class="form-control" id="description" type="text" th:text="${car.description}" name="description"></textarea>
+	    </div>
+	    
+	    <div class="form-group">
+	     	<label for="category">Company</label>
+		     <select th:field="*{company}" class="form-control" required>
+		     <option th:value="null">Select Compamy</option>
+		    <option th:value="tata">Tata</option>
+		    <option th:value="suzuki">Suzuki</option>
+		    <option th:value="hyundai">Hyundai</option>
+		    <option th:value="renault">Renault</option>
+		    <option th:value="mahendra">Mahendra</option>
+		    <option th:value="mg">MG</option>
+		    <option th:value="toyota">Toyota</option>
+		    <option th:value="benz">Benz</option>
+		    <option th:value="audi">Audi</option>
+		    <option th:value="bmw">BMW</option>
+		    
+		    </select>
+		  </div>
+	     <div class="form-group">
+	      <label for="model">Model</label>
+	      <input class="form-control" id="model" type="text" th:value="${car.model}" name="model">
+	    </div>
+	    
+		  
+		  
+		   <div class="form-group">
+	     	<label for="type">Type</label>
+		     <select th:field="*{type}" class="form-control" required>
+		     <option th:value="null">Select Type</option>
+		    <option th:value="gear">Gear</option>
+		    <option th:value="auto">Auto</option>
+		     <option th:value="electric">Electric</option>
+		    </select>
+		  </div>
+		  
+		  <div class="form-group">
+	     	<label for="noofseats">Number of Seats</label>
+		     <input class="form-control" id="noofseats" type="number" th:value="${car.noOfSeats}" name="noOfSeats">
+		  </div>
+		  
+		  <div class="form-group">
+	     	<label for="price">Price Per Day</label>
+		     <input class="form-control" id="price" type="number" th:value="${car.pricePerDay}" name="pricePerDay">
+		  </div>
+		  
+		  <div class="form-group">
+	     	<label for="isAvailable">Is Available</label>
+		     <select th:field="*{isAvailable}" class="form-control" required>
+		     <option th:value="null">Select</option>
+		    <option th:value="yes">Yes</option>
+		    <option th:value="no">No</option>
+		    </select>
+		  </div>
+	      
+       <div class="form-group">
+    <label>Car Photo</label>
+      <input type="file" class="form-control" name="image" accept="image/png, image/jpeg"/>
+    </div><br>
+	   
+        </div>
+        <div class="modal-footer">
+         
+          <input type="submit" class="btn btn-success" value="Update">
+          <br>  <br>
+            <a href="/car" class="btn btn-dark">
+                Back
+              </a>
+            
+        </div>
+      </form>
+</div>
+</div>
+
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
