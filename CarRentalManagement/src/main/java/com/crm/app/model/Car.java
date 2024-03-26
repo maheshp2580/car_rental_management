@@ -24,6 +24,7 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	private String name;
+	private String numberPlate;
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String photo;
