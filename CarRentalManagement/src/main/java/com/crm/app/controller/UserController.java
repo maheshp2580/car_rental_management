@@ -74,6 +74,47 @@ public class UserController {
 		return "user/drivers";
 	}
 	
+	@GetMapping("/myCarBookings")
+	public String userCarBookings(@ModelAttribute("user") User user, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+        model.addAttribute("sessionMessages", messages);
+    	User userdata = userService.findUser(messages.get(0));
+        model.addAttribute("sessionMessages", messages);
+        
+        List<BookCar> userCarBookings = userService.getUserCarBookings(userdata.getEmail());
+        
+        model.addAttribute("bookings", userCarBookings);
+
+		return "user/usercarbookings";
+	}
+	
+	@GetMapping("/myDriverBookings")
+	public String myDriverBookings(@ModelAttribute("user") User user, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+        model.addAttribute("sessionMessages", messages);
+    	User userdata = userService.findUser(messages.get(0));
+        model.addAttribute("sessionMessages", messages);
+        
+        List<BookDriver> userDriverBookings = userService.getUserDriverBookings(userdata.getEmail());
+        
+        model.addAttribute("bookings", userDriverBookings);
+
+		return "user/userdriverbookings";
+	}
 	
 	@PostMapping("/applyFilters")
 	public String applyFilters(Model model, HttpSession session, @RequestParam("company") String company,
@@ -109,6 +150,27 @@ public class UserController {
         //System.out.println("Length"+driverList.size()+company+type+seats);
         model.addAttribute("drivers", driverList);
 		return "user/drivers";
+	}
+	
+	@PostMapping("/saveCarBooking")
+	public String saveCarBooking(@ModelAttribute("bookcar") BookCar bookcar, Model model, HttpSession session) {
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		User userdata = userService.findUser(messages.get(0));
+        model.addAttribute("sessionMessages", messages);
+        
+       
+        
+        bookcar.setStatus("payment_pending");
+        
+        userService.saveCarBooking(bookcar);
+        
+        return "redirect:/makePayment";
 	}
 	
 }

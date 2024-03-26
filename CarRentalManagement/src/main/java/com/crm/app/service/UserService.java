@@ -31,6 +31,8 @@ public interface UserService {
 
 	List<Car> filterCars(String company, String type, String seats);
 
+	void saveCarBooking(BookCar bookcar);
+
 	List<Driver> filterDrivers(String experience, String rating, String price);
 
 	
