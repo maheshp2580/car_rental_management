@@ -9,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="../img/favicon.ico" rel="icon">
+    <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,7 +27,9 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
+
 
 <body>
     <!-- Topbar Start -->
@@ -77,12 +79,9 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/user" class="nav-item nav-link active">Home</a>
-<<<<<<< Updated upstream
-=======
-                        <a href="/drivers" class="nav-item nav-link">Drivers</a>
-                        <a href="/myCarBookings" class="nav-item nav-link">My Car Bookings</a>
+                          <a href="/drivers" class="nav-item nav-link">Drivers</a>
+                           <a href="/myCarBookings" class="nav-item nav-link">My Car Bookings</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
->>>>>>> Stashed changes
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
@@ -91,48 +90,85 @@
     </div>
     <!-- Navbar End -->
 
-<!-- Rent A Car Start -->
-    <div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Rent a Car</h1>
-            <div class="row">
-             <th:block th:each="car : ${cars}">
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" th:src="@{'data:image/jpeg;base64,' + ${car.photo}}" alt="">
-                        <h4 class="text-uppercase mb-4" th:text="${car.name}"></h4>
-                         <p class="text-uppercase mb-4" th:text="${car.description}"></p>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.company}">
-     						</th:block></span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.type}">
-     						</th:block></span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-user text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.noOfSeats}">
-     						</th:block></span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href=""> <th:block  th:text="${car.pricePerDay}">
-     						</th:block>/Day</a>
-     						 <a th:href="@{'/bookCar/' + ${car.Id}}" class="btn btn-success px-3" href="">Book</a>
-                    </div>
-                </div>
-                </th:block>
-                </div>
-            </div>
-        </div>
+<br>
+<div class="container">
+   <div class="col d-flex justify-content-center">
+  <div class="card" style="width: 28rem;">
+  <div class="card-body">
+	  <div class="row">
+		  <div class="col-lg-8">
+		  <center><h2 style="color:blue;float:right">Your Profile</h2></center>
+		  </div>
+		  <div class="col-lg-4">
+		   <form action="#" th:action="@{'/deleteProfile/' + ${user.Id}}" method="post">
+			  <button type="submit" class="btn" data-toggle="tooltip" data-placement="right" title="Delete your Account" style="float:right">
+	  			<i class="bi bi-trash3" style="color:red;font-weight:bold;font-size:20px"></i>
+			 </button>
+		   </form>
+		   </span>
+		  </div>
+	  </div><hr>
+	  
+	  <form action="#" th:action=@{/updateProfile} th:object="${user}" method="post">
+	     <input type="hidden" class="form-control" placeholder="" th:field="*{Id}" required/>
+	     
+	  
+	   <div class="form-group">
+	  <label>First name</label>
+     <input type="text" class="form-control" placeholder="Enter firstname" th:value="${user.firstname}" name="firstname" required/>
     </div>
-    <!-- Rent A Car End -->
-
+    <div class="form-group">
+    <label>Last name</label>
+     <input type="text" class="form-control" placeholder="Enter lastname"  th:value="${user.lastname}" name="lastname" required/>
+    </div>
+     <div class="form-group">
+    <label>Last name</label>
+    <input type="text" class="form-control" placeholder="Username"  th:field="*{username}" required/>
+   </div>
+     
+    <div class="form-group">
+      <label>Mobile Number</label>
+     <input type="text" class="form-control" placeholder="Enter mobileNo" th:value="${user.mobileNumber}"  name="mobileNumber"  maxlength="10" minlength="10" title="Please enter exactly 10 digits" pattern="\d{10}" required/> 
+    </div>
+     <div class="form-group">
+      <label>Email</label>
+     <input type="text" class="form-control" placeholder="Enter email"  th:field="*{email}" required readonly="readonly"/>
+  </div>
+    
+      <input type="hidden" class="form-control" th:field="*{password}" required/>
+ 
+    
+    <div class="form-group">
+      <label>Door No</label>
+     <input type="text" class="form-control" placeholder="Enter Door No" name="doorNo"   th:value="${user.doorNo}" required/>
+    </div>
+    
+    <div class="form-group">
+      <label>Street Name</label>
+     <input type="text" class="form-control" placeholder="Enter Street Name" name="street" th:value="${user.street}" required/>
+    </div>
+    
+    <div class="form-group">
+      <label>City</label>
+     <input type="text" class="form-control" placeholder="Enter City Name"  name="city" th:value="${user.city}" required/>
+    </div>
+    
+    <div class="form-group">
+      <label>Zip Code</label>
+     <input type="text" class="form-control" placeholder="Enter Zip Code"  name="zipCode" th:value="${user.zipCode}" required/>
+    </div>
+    
    
-
+    
+   
+	    <button type="submit" class="btn btn-primary">Update Profile</button>
+	    
+	  </form>
+  <br>
+   </div>
+</div>
+</div>
+</div>
 
    
 
@@ -224,7 +260,7 @@
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

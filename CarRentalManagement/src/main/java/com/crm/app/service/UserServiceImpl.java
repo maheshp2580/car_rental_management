@@ -12,9 +12,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.app.dao.BookCarRepo;
 import com.crm.app.dao.CarRepo;
+import com.crm.app.dao.PaymentRepo;
 import com.crm.app.dao.UserRepo;
+import com.crm.app.model.BookCar;
 import com.crm.app.model.Car;
+import com.crm.app.model.Payment;
 import com.crm.app.model.User;
 
 
@@ -27,6 +31,12 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private CarRepo carRepo;
+	
+	@Autowired
+	private BookCarRepo bookCarRepo;
+	
+	@Autowired
+	private PaymentRepo paymentRepo;
 
 	
 	public int saveUser(User user) {
@@ -145,4 +155,83 @@ public class UserServiceImpl implements UserService{
 		return carRepo.findAll();
 	}
 
+<<<<<<< Updated upstream
+=======
+	
+	@Override
+	public List<Car> filterCars(String company, String type, String seats) {
+		
+		if(company.isEmpty() && type.isEmpty() && seats.isEmpty()) {
+			return  carRepo.findAll();
+		}
+		
+		List<Car> cars = carRepo.findAll();
+		List<Car> filteredCars = new ArrayList<Car>();
+		
+		if(!company.isEmpty() && type.isEmpty() && seats.isEmpty()) {
+			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company)).collect(Collectors.toList());	
+		}
+		
+		else if(company.isEmpty() && !type.isEmpty() && seats.isEmpty()) {
+			filteredCars = cars.stream().filter(car -> car.getType().equals(type)).collect(Collectors.toList());	
+		}
+		
+		else if(company.isEmpty() && type.isEmpty() && !seats.isEmpty()) {
+			filteredCars = cars.stream().filter(car -> car.getNoOfSeats().equals(seats)).collect(Collectors.toList());	
+		}
+		
+		else if(!company.isEmpty() && !type.isEmpty() && seats.isEmpty()) {
+			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company) && car.getType().equals(type)).collect(Collectors.toList());	
+		}
+		
+		else if(company.isEmpty() && !type.isEmpty() && !seats.isEmpty()) {
+			filteredCars = cars.stream().filter(car -> car.getNoOfSeats().equals(seats) && car.getType().equals(type)).collect(Collectors.toList());	
+		}
+		
+		else if(!company.isEmpty() && type.isEmpty() && !seats.isEmpty()) {
+			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company) && car.getNoOfSeats().equals(seats)).collect(Collectors.toList());	
+		}
+		else {
+			filteredCars = cars.stream().filter(car -> car.getCompany().equals(company) && car.getType().equals(type) && car.getNoOfSeats().equals(seats)).collect(Collectors.toList());	
+		}
+		
+		 
+		
+		
+		
+		return filteredCars.stream().collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparingLong(Car::getId))),
+                ArrayList::new));
+	}
+
+	@Override
+	public void saveCarBooking(BookCar bookcar) {
+		// TODO Auto-generated method stub
+		bookCarRepo.save(bookcar);
+		
+		
+	}
+
+	@Override
+	public BookCar getUserBooking(String email) {
+		// TODO Auto-generated method stub
+		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email) && bc.getStatus().equals("payment_pending")).collect(Collectors.toList()).get(0);
+	}
+
+	@Override
+	public void savePayment(Payment payment) {
+		// TODO Auto-generated method stub
+		paymentRepo.save(payment);
+		BookCar bookCar = bookCarRepo.findBookCarById(Long.parseLong(payment.getBookingId()));
+		bookCar.setStatus("payment_completed");
+		bookCarRepo.save(bookCar);
+		
+	}
+
+	@Override
+	public List<BookCar> getUserCarBookings(String email) {
+		// TODO Auto-generated method stub
+		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
+		
+	}
+>>>>>>> Stashed changes
 }
