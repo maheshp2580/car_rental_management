@@ -42,10 +42,6 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private BookCarRepo bookCarRepo;
-	
-	@Autowired
-	private BookDriverRepo bookDriverRepo;
-	
 
 	
 	public int saveUser(User user) {
@@ -210,83 +206,5 @@ public class UserServiceImpl implements UserService{
                 ArrayList::new));
 	}
 
-	@Override
-	public void saveCarBooking(BookCar bookcar) {
-		// TODO Auto-generated method stub
-		bookCarRepo.save(bookcar);
-		
-		
-	}
-
-	@Override
-	public List<Driver> filterDrivers(String experience, String rating, String price) {
-		if(experience.isEmpty() && rating.isEmpty() && price.isEmpty()) {
-			return  driverRepo.findAll();
-		}
-		
-		
-		List<Driver> drivers = driverRepo.findAll();
-		List<Driver> filteredDrivers = new ArrayList<Driver>();
-		
-		if(!experience.isEmpty() && rating.isEmpty() && price.isEmpty()) {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getNoOfYearsExperience()) >= Integer.parseInt(experience)).collect(Collectors.toList());	
-		}
-		
-		else if(experience.isEmpty() && !rating.isEmpty() && price.isEmpty()) {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getRating()) >= Integer.parseInt(rating) ).collect(Collectors.toList());	
-		}
-		
-		else if(experience.isEmpty() && rating.isEmpty() && !price.isEmpty()) {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getPricePerDay()) <= Integer.parseInt(price)).collect(Collectors.toList());	
-		}
-		
-		else if(!experience.isEmpty() && !rating.isEmpty() && price.isEmpty()) {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getNoOfYearsExperience()) >= Integer.parseInt(experience) && Integer.parseInt(driver.getRating()) >= Integer.parseInt(rating)).collect(Collectors.toList());	
-		}
-		
-		else if(experience.isEmpty() && !rating.isEmpty() && !price.isEmpty()) {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getRating()) >= Integer.parseInt(rating) && Integer.parseInt(driver.getPricePerDay()) <= Integer.parseInt(price)).collect(Collectors.toList());	
-		}
-		
-		else if(!experience.isEmpty() && rating.isEmpty() && !price.isEmpty()) {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getNoOfYearsExperience()) >= Integer.parseInt(experience) && Integer.parseInt(driver.getPricePerDay()) <= Integer.parseInt(price)).collect(Collectors.toList());	
-		}
-		else {
-			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getNoOfYearsExperience()) >= Integer.parseInt(experience) && Integer.parseInt(driver.getRating()) >= Integer.parseInt(rating) && Integer.parseInt(driver.getPricePerDay()) <= Integer.parseInt(price)).collect(Collectors.toList());	
-		}
-		
-		 
-		
-		
-		
-		return filteredDrivers.stream().collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparingLong(Driver::getId))),
-                ArrayList::new));
-	}
-
-	@Override
-	public Driver getDriverById(Long id) {
-		// TODO Auto-generated method stub
-		return driverRepo.getById(id);
-		
-	}
-
-	@Override
-	public void saveDriverBooking(BookDriver bookdriver) {
-		// TODO Auto-generated method stub
-		bookDriverRepo.save(bookdriver);
-		
-	}
-
-	@Override
-	public BookDriver getUserDirverBooking(String email) {
-		// TODO Auto-generated method stub
-		return bookDriverRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email) && bc.getStatus().equals("payment_pending")).collect(Collectors.toList()).get(0);
-	}
-
-	@Override
-	public List<BookDriver> getUserDriverBookings(String email) {
-		// TODO Auto-generated method stub
-		return bookDriverRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
-	}
-
+	
 }
