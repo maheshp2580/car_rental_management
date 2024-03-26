@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.crm.app.model.BookCar;
 import com.crm.app.model.Car;
 import com.crm.app.model.Driver;
 import com.crm.app.model.User;
@@ -241,5 +242,30 @@ public class AdminController {
 		return "redirect:/driver";
 	}
 	
+	@GetMapping("/carbookings")
+	public String carbookings(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<BookCar> carbookings = adminService.getAllCarBookings();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("carbookings", carbookings);
+
+		return "admin/carbookings";
+	}
+	
+	@GetMapping("/confirmCarBooking/{id}")
+	public String confirmCarBooking(@PathVariable(name="id") Long id)
+	{
+		adminService.confirmCarBooking(id);
+		
+		return "redirect:/carbookings";
+	}
 	
 }
