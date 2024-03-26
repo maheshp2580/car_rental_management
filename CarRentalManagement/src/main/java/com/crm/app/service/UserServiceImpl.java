@@ -155,8 +155,7 @@ public class UserServiceImpl implements UserService{
 		return carRepo.findAll();
 	}
 
-<<<<<<< Updated upstream
-=======
+
 	
 	@Override
 	public List<Car> filterCars(String company, String type, String seats) {
@@ -203,6 +202,7 @@ public class UserServiceImpl implements UserService{
                 ArrayList::new));
 	}
 
+
 	@Override
 	public void saveCarBooking(BookCar bookcar) {
 		// TODO Auto-generated method stub
@@ -233,5 +233,5 @@ public class UserServiceImpl implements UserService{
 		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
 		
 	}
->>>>>>> Stashed changes
+
 }
