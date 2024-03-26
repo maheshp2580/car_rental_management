@@ -46,16 +46,6 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private BookDriverRepo bookDriverRepo;
 	
-	@Autowired
-	private PaymentRepo paymentRepo;
-	
-	@Autowired
-	private DriverRepo driverRepo;
-	
-	@Autowired
-	private RatingRepo ratingRepo;
-	@Autowired
-	private FeedbackRepo feedbackRepo;
 
 	
 	public int saveUser(User user) {
@@ -229,29 +219,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public BookCar getUserBooking(String email) {
-		// TODO Auto-generated method stub
-		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email) && bc.getStatus().equals("payment_pending")).collect(Collectors.toList()).get(0);
-	}
-
-	@Override
-	public void savePayment(Payment payment) {
-		// TODO Auto-generated method stub
-		paymentRepo.save(payment);
-		BookCar bookCar = bookCarRepo.findBookCarById(Long.parseLong(payment.getBookingId()));
-		bookCar.setStatus("payment_completed");
-		bookCarRepo.save(bookCar);
-		
-	}
-
-	@Override
-	public List<BookCar> getUserCarBookings(String email) {
-		// TODO Auto-generated method stub
-		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
-		
-	}
-
-	@Override
 	public List<Driver> filterDrivers(String experience, String rating, String price) {
 		if(experience.isEmpty() && rating.isEmpty() && price.isEmpty()) {
 			return  driverRepo.findAll();
@@ -322,16 +289,4 @@ public class UserServiceImpl implements UserService{
 		return bookDriverRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
 	}
 
-	@Override
-	public void saveReview(Rating rating) {
-		// TODO Auto-generated method stub
-		ratingRepo.save(rating);
-		
-	}
-
-	@Override
-	public void saveFeedback(Feedback feedback) {
-		// TODO Auto-generated method stub
-		feedbackRepo.save(feedback);
-	}
 }

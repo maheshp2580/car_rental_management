@@ -31,27 +31,9 @@ public interface UserService {
 
 	List<Car> filterCars(String company, String type, String seats);
 
-	void saveCarBooking(BookCar bookcar);
-
-	BookCar getUserBooking(String email);
-
-	void savePayment(Payment payment);
-
-	List<BookCar> getUserCarBookings(String email);
-
 	List<Driver> filterDrivers(String experience, String rating, String price);
 
-	Driver getDriverById(Long id);
-
-	void saveDriverBooking(BookDriver bookdriver);
-
-	BookDriver getUserDirverBooking(String email);
-
-	List<BookDriver> getUserDriverBookings(String email);
-
-	void saveReview(Rating rating);
-
-	void saveFeedback(Feedback feedback);
+	
 	
 	
 	
