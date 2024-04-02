@@ -30,4 +30,15 @@ public interface UserService {
 	void deleteUser(Long id);
 
 	List<Car> filterCars(String company, String type, String seats);
+
+	void saveCarBooking(BookCar bookcar);
+
+	BookCar getUserBooking(String email);
+
+	void savePayment(Payment payment);
+
+	List<BookCar> getUserCarBookings(String email);
+
+	List<Driver> filterDrivers(String experience, String rating, String price);
+
 }

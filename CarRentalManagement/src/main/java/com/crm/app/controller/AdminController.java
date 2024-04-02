@@ -70,12 +70,23 @@ public class AdminController {
 		return "admin/car";
 	}
 	
+	@PostMapping("/saveCar")
+	public String saveCar(@ModelAttribute("car") Car car, Model model, HttpSession session, @RequestParam("image") MultipartFile itemImage)
+	{
+			try {
+				car.setPhoto(Base64.getEncoder().encodeToString(itemImage.getBytes()));
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			adminService.saveCar(car);
+		
+			return "redirect:/car";
+		
+	}
 	
-	
-	
-	
-	@GetMapping("/editDriver/{id}")
-	public String editDriver(Model model, HttpSession session, @PathVariable(name="id") Long id) {
+	@GetMapping("/editCar/{id}")
+	public String editCar(Model model, HttpSession session, @PathVariable(name="id") Long id) {
 		
 		
 		@SuppressWarnings("unchecked")
@@ -84,12 +95,73 @@ public class AdminController {
 			model.addAttribute("errormsg", "Session Expired. Please Login Again");
 			return "home/error";
 		}
-		Driver driver = adminService.getDriverById(id);
-		model.addAttribute("driver", driver);
+		Car car = adminService.getCarById(id);
+		model.addAttribute("car", car);
 		
         model.addAttribute("sessionMessages", messages);
 		
-		return "admin/updatedriver";
+		return "admin/updatecar";
+	}
+	
+	@PostMapping("/updateCar")
+	public String updateCar(@ModelAttribute("car") Car car, Model model, HttpSession session, @RequestParam("image") MultipartFile itemImage)
+	{
+		System.out.println("menu updated");
+		
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+        model.addAttribute("sessionMessages", messages);
+       
+        
+        if(!itemImage.getOriginalFilename().isEmpty()) {
+        	try {
+        		
+				car.setPhoto(Base64.getEncoder().encodeToString(itemImage.getBytes()));
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+        }
+        else {
+        	Car m = adminService.getCarById(car.getId());
+        	car.setPhoto(m.getPhoto());
+        }
+		
+		adminService.updateCar(car);
+		
+			return "redirect:/car";
+		
+	}
+	
+	@PostMapping("/deleteCar/{id}")
+	public String deleteCar(@PathVariable(name="id") Long id)
+	{
+		adminService.deleteCar(id);
+		
+		return "redirect:/car";
+	}
+	
+	@GetMapping("/carbookings")
+	public String carbookings(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<BookCar> carbookings = adminService.getAllCarBookings();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("carbookings", carbookings);
+
+		return "admin/carbookings";
 	}
 	
 	@GetMapping("/confirmCarBooking/{id}")

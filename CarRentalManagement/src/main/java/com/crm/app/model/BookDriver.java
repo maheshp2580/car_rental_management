@@ -17,22 +17,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "drivers")
-public class Driver {
+@Table(name = "driver_bookings")
+public class BookDriver {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String name;
-	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String photo;
-	private String age;
-	private String gender;
-	private String noOfYearsExperience;
-	private String rating;
-	private String isAvailable;
+	private String userEmail;
+	private String driverId;
+	private String driverName;
 	private String pricePerDay;
+	private String fromDate;
+	private String toDate;
+	private String totalAmount;
+	private String address;
+	private String status;
 	
 	
 

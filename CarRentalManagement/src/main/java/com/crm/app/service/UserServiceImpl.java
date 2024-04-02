@@ -42,6 +42,20 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private BookCarRepo bookCarRepo;
+	
+	@Autowired
+	private BookDriverRepo bookDriverRepo;
+	
+	@Autowired
+	private PaymentRepo paymentRepo;
+	
+	@Autowired
+	private DriverRepo driverRepo;
+	
+	@Autowired
+	private RatingRepo ratingRepo;
+	@Autowired
+	private FeedbackRepo feedbackRepo;
 
 	
 	public int saveUser(User user) {
@@ -206,5 +220,35 @@ public class UserServiceImpl implements UserService{
                 ArrayList::new));
 	}
 
-	
+	@Override
+	public void saveCarBooking(BookCar bookcar) {
+		// TODO Auto-generated method stub
+		bookCarRepo.save(bookcar);
+		
+		
+	}
+
+	@Override
+	public BookCar getUserBooking(String email) {
+		// TODO Auto-generated method stub
+		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email) && bc.getStatus().equals("payment_pending")).collect(Collectors.toList()).get(0);
+	}
+
+	@Override
+	public void savePayment(Payment payment) {
+		// TODO Auto-generated method stub
+		paymentRepo.save(payment);
+		BookCar bookCar = bookCarRepo.findBookCarById(Long.parseLong(payment.getBookingId()));
+		bookCar.setStatus("payment_completed");
+		bookCarRepo.save(bookCar);
+		
+	}
+
+	@Override
+	public List<BookCar> getUserCarBookings(String email) {
+		// TODO Auto-generated method stub
+		return bookCarRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
+		
+	}
+
 }
