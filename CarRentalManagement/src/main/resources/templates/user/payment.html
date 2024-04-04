@@ -19,14 +19,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -64,7 +64,7 @@
     <!-- Topbar End -->
 
 
-    <!-- Navbar Start -->
+  <!-- Navbar Start -->
     <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative px-lg-5" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
@@ -86,89 +86,93 @@
         </div>
     </div>
     <!-- Navbar End -->
-    
-        <form class="row" action="#" th:action=@{/applyFilters} method="post">
-    <div class="container-fluid bg-white pt-3 px-lg-5">
-        <div class="row mx-n2">
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;" name="company">
-                    <option value="">Select Car Company</option>
-                     <option value="tata">Tata</option>
-				    <option value="suzuki">Suzuki</option>
-				    <option value="hyundai">Hyundai</option>
-				    <option value="renault">Renault</option>
-				    <option value="mahendra">Mahendra</option>
-				    <option value="mg">MG</option>
-				    <option value="toyota">Toyota</option>
-				    <option value="benz">Benz</option>
-				    <option value="audi">Audi</option>
-				    <option value="bmw">BMW</option>
-                </select>
-            </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;" name="type">
-                    <option value="">Select Type</option>
-			    <option value="gear">Gear</option>
-			    <option value="auto">Auto</option>
-			     <option value="electric">Electric</option>
-                </select>
-            </div>
-            
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;" name="seats">
-                    <option value="">Select Number of Seats</option>
-                    <option value="7">7</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
-            </div>
-        </div>
-    </div>
-            </form>
 
-<!-- Rent A Car Start -->
-    <div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Rent a Car</h1>
-            <div class="row">
-             <th:block th:each="car : ${cars}">
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" th:src="@{'data:image/jpeg;base64,' + ${car.photo}}" alt="">
-                        <h4 class="text-uppercase mb-4" th:text="${car.name}"></h4>
-                         <p class="text-uppercase mb-4" th:text="${car.description}"></p>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.company}">
-     						</th:block></span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.type}">
-     						</th:block></span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-user text-primary mr-1"></i>
-                                <span><th:block  th:text="${car.noOfSeats}">
-     						</th:block></span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href=""> <th:block  th:text="${car.pricePerDay}">
-     						</th:block>/Day</a>
-     						 <a th:href="@{'/bookCar/' + ${car.Id}}" class="btn btn-success px-3" href="">Book</a>
-                    </div>
-                </div>
-                </th:block>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Rent A Car End -->
 
    
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            
+            <h1 class="display-4 text-uppercase text-center mb-5">Complete Payment</h1>
+            <div class="row">
+                <div class="col-lg-7 mb-2">
+                    <div class="contact-form bg-light mb-4" style="padding: 30px;">
+                         <form action="#" th:action=@{/completePayment} th:object="${payment}" method="post">
+            <div class="row">
+            <input type="hidden" class="form-control" name="bookingId" th:value="${bookId}" required/>
+        		<div class="col-md-12">
+			    <div class="form-group">
+			    <label>Your Email</label>
+			     <input type="text" class="form-control" name="userEmail" th:value="${userEmail}" required readonly="readonly"/>
+			    </div>
+			    <div class="form-group">
+			    <label>Card Number</label>
+			     <input type="number" class="form-control" name="cardNumber" required/>
+			    </div>
+			    <div class="form-group">
+			    <label>Card Name</label>
+			     <input type="text" class="form-control" name="cardName" id="cardNumber" required/>
+			    </div>
+	              <div class="form-group">
+	              <label>CVV</label>
+	                 <input type="number" class="form-control" placeholder="Enter CVV" th:field="*{cvv}" required/>
+	              </div>
+
+	              <div class="form-group">
+	              <label>Amount To be Paid</label>
+	                <input type="text" class="form-control" id="amountPaid"  name="amountPaid" th:value="${amountPaid}" required readonly="readonly"/>
+	              </div>
+	              
+	           
+               </div>
+
+        		
+            </div>
+          
+              
+              <div>
+                                <button class="btn btn-primary py-3 px-5" type="submit">Pay Now</button>
+                            </div>
+            </form>
+                    </div>
+                </div>
+                <div class="col-lg-5 mb-2">
+                    <div class="bg-secondary d-flex flex-column justify-content-center px-5 mb-4" style="height: 435px;">
+                        <div class="d-flex mb-3">
+                            <i class="fa fa-2x fa-map-marker-alt text-primary flex-shrink-0 mr-3"></i>
+                            <div class="mt-n1">
+                                <h5 class="text-light">Head Office</h5>
+                                <p>123 Street, New York, USA</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="fa fa-2x fa-map-marker-alt text-primary flex-shrink-0 mr-3"></i>
+                            <div class="mt-n1">
+                                <h5 class="text-light">Branch Office</h5>
+                                <p>123 Street, New York, USA</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"></i>
+                            <div class="mt-n1">
+                                <h5 class="text-light">Customer Service</h5>
+                                <p>customer@example.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <i class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"></i>
+                            <div class="mt-n1">
+                                <h5 class="text-light">Return & Refund</h5>
+                                <p class="m-0">refund@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
 
 
    
@@ -253,12 +257,14 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    
+   
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>

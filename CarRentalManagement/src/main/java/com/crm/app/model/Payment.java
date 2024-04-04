@@ -17,24 +17,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "car")
-public class Car {
+@Table(name = "payments")
+public class Payment {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String name;
-	private String numberPlate;
-	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String photo;
-	private String description;
-	private String company;
-	private String model;
-	private String type;
-	private String noOfSeats;
-	private String pricePerDay;
-	private String isAvailable;
+	private String userEmail;
+	private String bookingId;
+	private String cardNumber;
+	private String cvv;
+	private String cardName;
+	private String coupon;
+	private String amountPaid;
 	
 	
 

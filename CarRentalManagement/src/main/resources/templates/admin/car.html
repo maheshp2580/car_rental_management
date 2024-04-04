@@ -256,6 +256,7 @@
       <thead>
         <tr>
            <th>Name</th>
+           <th>Number Plate</th>
           <th>Description</th>
           <th>Company</th>
           <th>Model</th>
@@ -270,6 +271,7 @@
       <th:block th:each="car : ${cars}">
         <tr> 
           <td th:text="${car.name}"></td>
+          <td th:text="${car.numberPlate}"></td>
           <td th:text="${car.description}"></td>
           <td th:text="${car.company}"></td>
           <td th:text="${car.model}"></td>
@@ -311,6 +313,11 @@
           <div class="form-group">
 	      <label for="name">Name</label>
 	      <input class="form-control" id="name" type="text" name="name">
+	    </div>
+	    <div class="modal-body">
+          <div class="form-group">
+	      <label for="numberPlate">Number Plate</label>
+	      <input class="form-control" id="numberPlate" type="text" name="numberPlate">
 	    </div>
 	    <div class="form-group">
 	      <label for="description">Description</label>
