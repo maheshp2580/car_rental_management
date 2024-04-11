@@ -191,7 +191,7 @@ public class CRMController {
 		}
 		System.out.println("save===usernew password");
 		System.out.println("userModel#########"+user.toString());
-		 request.getSession().invalidate();
+		request.getSession().invalidate();
 		return "redirect:/login";
 	}
 	
@@ -254,8 +254,8 @@ public class CRMController {
 	public String deleteProfile(@PathVariable(name="id") Long id,HttpServletRequest request, Model model)
 	{
 		userService.deleteUser(id);
-		 request.getSession().invalidate();
-		 model.addAttribute("errormsg", "Your Account Deleted Successfully");
+		request.getSession().invalidate();
+		model.addAttribute("errormsg", "Your Account Deleted Successfully");
 			return "home/error";
 	}
 

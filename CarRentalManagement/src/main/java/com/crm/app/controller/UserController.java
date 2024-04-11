@@ -334,28 +334,7 @@ public class UserController {
         return "redirect:/user";
 	}
 	
-	@GetMapping("/addReview/{id}")
-	public String addReview(Model model, HttpSession session, @PathVariable(name="id") Long id) {
-		
-		
-		@SuppressWarnings("unchecked")
-        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
-		if(messages == null) {
-			model.addAttribute("errormsg", "Session Expired. Please Login Again");
-			return "home/error";
-		}
-		User userdata = userService.findUser(messages.get(0));
-        model.addAttribute("sessionMessages", messages);
-		Rating rating = new Rating(); 
-		model.addAttribute("rating", rating);
-		model.addAttribute("driverId",id);
-		
-		model.addAttribute("userEmail", userdata.getEmail());
-		
-        model.addAttribute("sessionMessages", messages);
-		
-		return "user/addreview";
-	}
+
 	
 	@GetMapping("/addFeedback/{id}")
 	public String addFeedback(Model model, HttpSession session, @PathVariable(name="id") Long id) {
@@ -379,6 +358,8 @@ public class UserController {
 		
 		return "user/addfeedback";
 	}
+	
+
 	
 	@PostMapping("/saveFeedback")
 	public String saveFeedback(@ModelAttribute("feedback") Feedback feedback, Model model, HttpSession session) {

@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.crm.app.dao.BookCarRepo;
 import com.crm.app.dao.BookDriverRepo;
 import com.crm.app.dao.CarRepo;
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private DriverRepo driverRepo;
-
+	
 	@Autowired
 	private FeedbackRepo feedbackRepo;
 
@@ -281,6 +283,8 @@ public class UserServiceImpl implements UserService{
 		else {
 			filteredDrivers = drivers.stream().filter(driver -> Integer.parseInt(driver.getNoOfYearsExperience()) >= Integer.parseInt(experience) && Integer.parseInt(driver.getRating()) >= Integer.parseInt(rating) && Integer.parseInt(driver.getPricePerDay()) <= Integer.parseInt(price)).collect(Collectors.toList());	
 		}
+		
+		 
 		
 		
 		
