@@ -27,4 +27,22 @@ public interface AdminService {
 	Driver getDriverById(Long id);
 
 	void updateDriver(Driver driver);
+
+	void deleteDriver(Long id);
+
+	List<Driver> getAllDrivers();
+
+	List<BookCar> getAllCarBookings();
+
+	void confirmCarBooking(Long id);
+
+	List<BookDriver> getAllDriverBookings();
+
+	void confirmDriverBooking(Long id);
+
+
+	
+
+
+
 }

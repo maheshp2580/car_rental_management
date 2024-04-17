@@ -116,5 +116,34 @@ public class AdminServiceImpl implements AdminService{
 		return driverRepo.findAll();
 	}
 
-}
+	@Override
+	public List<BookCar> getAllCarBookings() {
+		// TODO Auto-generated method stub
+		return bookCarRepo.findAll();
+	}
+
+	@Override
+	public void confirmCarBooking(Long id) {
+		// TODO Auto-generated method stub
+		BookCar bookCar = bookCarRepo.findBookCarById(id);
+		bookCar.setStatus("confirmed");
+		bookCarRepo.save(bookCar);
+	}
+
+	@Override
+	public List<BookDriver> getAllDriverBookings() {
+		// TODO Auto-generated method stub
+		return bookDriverRepo.findAll();
+	}
+
+	@Override
+	public void confirmDriverBooking(Long id) {
+		// TODO Auto-generated method stub
+		BookDriver bookDriver = bookDriverRepo.findBookDriverById(id);
+		bookDriver.setStatus("confirmed");
+		bookDriverRepo.save(bookDriver);
+	}
+
+	
+
 }

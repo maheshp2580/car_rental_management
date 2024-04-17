@@ -41,4 +41,19 @@ public interface UserService {
 
 	List<Driver> filterDrivers(String experience, String rating, String price);
 
+	Driver getDriverById(Long id);
+
+	void saveDriverBooking(BookDriver bookdriver);
+
+	BookDriver getUserDirverBooking(String email);
+
+	List<BookDriver> getUserDriverBookings(String email);
+
+	void saveReview(Rating rating);
+
+	void saveFeedback(Feedback feedback);
+	
+	
+	
+
 }
