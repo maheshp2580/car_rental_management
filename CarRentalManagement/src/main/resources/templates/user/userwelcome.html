@@ -77,12 +77,14 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/user" class="nav-item nav-link active">Home</a>
-<<<<<<< Updated upstream
-=======
+
                         <a href="/drivers" class="nav-item nav-link">Drivers</a>
                         <a href="/myCarBookings" class="nav-item nav-link">My Car Bookings</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
->>>>>>> Stashed changes
+
+                        <a href="/drivers" class="nav-item nav-link">Drivers</a>
+                        <a href="/profile" class="nav-item nav-link">Profile</a>
+
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
@@ -90,6 +92,47 @@
         </div>
     </div>
     <!-- Navbar End -->
+    
+        <form class="row" action="#" th:action=@{/applyFilters} method="post">
+    <div class="container-fluid bg-white pt-3 px-lg-5">
+        <div class="row mx-n2">
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <select class="custom-select px-4 mb-3" style="height: 50px;" name="company">
+                    <option value="">Select Car Company</option>
+                     <option value="tata">Tata</option>
+				    <option value="suzuki">Suzuki</option>
+				    <option value="hyundai">Hyundai</option>
+				    <option value="renault">Renault</option>
+				    <option value="mahendra">Mahendra</option>
+				    <option value="mg">MG</option>
+				    <option value="toyota">Toyota</option>
+				    <option value="benz">Benz</option>
+				    <option value="audi">Audi</option>
+				    <option value="bmw">BMW</option>
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <select class="custom-select px-4 mb-3" style="height: 50px;" name="type">
+                    <option value="">Select Type</option>
+			    <option value="gear">Gear</option>
+			    <option value="auto">Auto</option>
+			     <option value="electric">Electric</option>
+                </select>
+            </div>
+            
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <select class="custom-select px-4 mb-3" style="height: 50px;" name="seats">
+                    <option value="">Select Number of Seats</option>
+                    <option value="7">7</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
+            </div>
+        </div>
+    </div>
+            </form>
 
 <!-- Rent A Car Start -->
     <div class="container-fluid py-5">

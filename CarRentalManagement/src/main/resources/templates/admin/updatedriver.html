@@ -34,62 +34,35 @@ input,textarea, .back {
 <br>
 
  <div class="form-box">
-  <h4>Edit Car</h4>
+  <h4>Edit Driver</h4>
   
-  <form action="#" th:action=@{/updateCar} th:object="${car}" method="post" enctype="multipart/form-data">
+  <form action="#" th:action=@{/updateDriver} th:object="${driver}" method="post" enctype="multipart/form-data">
          <input type="hidden" class="form-control" th:field="*{Id}" required/>
         <div class="modal-body">
           <div class="form-group">
 	      <label for="name">Name</label>
-	      <input class="form-control" id="name" type="text" th:value="${car.name}" name="name">
+	      <input class="form-control" id="name" type="text" th:value="${driver.name}" name="name">
 	    </div>
 	    <div class="form-group">
-	      <label for="description">Description</label>
-	      <textarea class="form-control" id="description" type="text" th:text="${car.description}" name="description"></textarea>
+	      <label for="age">Age</label>
+	      <input class="form-control" id="age" type="number" th:text="${driver.age}" name="description"></input>
 	    </div>
 	    
 	    <div class="form-group">
-	     	<label for="category">Company</label>
-		     <select th:field="*{company}" class="form-control" required>
-		     <option th:value="null">Select Compamy</option>
-		    <option th:value="tata">Tata</option>
-		    <option th:value="suzuki">Suzuki</option>
-		    <option th:value="hyundai">Hyundai</option>
-		    <option th:value="renault">Renault</option>
-		    <option th:value="mahendra">Mahendra</option>
-		    <option th:value="mg">MG</option>
-		    <option th:value="toyota">Toyota</option>
-		    <option th:value="benz">Benz</option>
-		    <option th:value="audi">Audi</option>
-		    <option th:value="bmw">BMW</option>
+	     	<label for="gender">Gender</label>
+		     <select th:field="*{gender}" class="form-control" required>
+		     <option th:value="null">Select Gender</option>
+		    <option th:value="male">Male</option>
+		    <option th:value="female">Female</option>
+		 
 		    
 		    </select>
 		  </div>
-	     <div class="form-group">
-	      <label for="model">Model</label>
-	      <input class="form-control" id="model" type="text" th:value="${car.model}" name="model">
-	    </div>
-	    
-		  
-		  
-		   <div class="form-group">
-	     	<label for="type">Type</label>
-		     <select th:field="*{type}" class="form-control" required>
-		     <option th:value="null">Select Type</option>
-		    <option th:value="gear">Gear</option>
-		    <option th:value="auto">Auto</option>
-		     <option th:value="electric">Electric</option>
-		    </select>
-		  </div>
-		  
-		  <div class="form-group">
-	     	<label for="noofseats">Number of Seats</label>
-		     <input class="form-control" id="noofseats" type="number" th:value="${car.noOfSeats}" name="noOfSeats">
-		  </div>
+	   
 		  
 		  <div class="form-group">
 	     	<label for="price">Price Per Day</label>
-		     <input class="form-control" id="price" type="number" th:value="${car.pricePerDay}" name="pricePerDay">
+		     <input class="form-control" id="price" type="number" th:value="${driver.pricePerDay}" name="pricePerDay">
 		  </div>
 		  
 		  <div class="form-group">
@@ -102,7 +75,7 @@ input,textarea, .back {
 		  </div>
 	      
        <div class="form-group">
-    <label>Car Photo</label>
+    <label>Driver Photo</label>
       <input type="file" class="form-control" name="image" accept="image/png, image/jpeg"/>
     </div><br>
 	   
@@ -111,7 +84,7 @@ input,textarea, .back {
          
           <input type="submit" class="btn btn-success" value="Update">
           <br>  <br>
-            <a href="/car" class="btn btn-dark">
+            <a href="/driver" class="btn btn-dark">
                 Back
               </a>
             
