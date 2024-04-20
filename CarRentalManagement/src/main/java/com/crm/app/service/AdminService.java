@@ -25,21 +25,7 @@ public interface AdminService {
 
 	int updateCar(Car car);
 
-	int saveDriver(Driver driver);
-
-	Driver getDriverById(Long id);
-
-	void deleteDriver(Long id);
-
-	List<Driver> getAllDrivers();
-
 	List<BookCar> getAllCarBookings();
-
-	void confirmCarBooking(Long id);
-
-	List<BookDriver> getAllDriverBookings();
-
-	void confirmDriverBooking(Long id);
 
 	List<Feedback> getFeedbacks();
 
@@ -48,6 +34,12 @@ public interface AdminService {
 	List<Coupon> getAllCoupons();
 
 	void saveCoupon(Coupon coupon);
+
+	List<BookDriver> getAllDriverBookings();
+
+    void confirmCarBooking(Long id);
+
+    List<Driver> getAllDrivers();
 
 
 	

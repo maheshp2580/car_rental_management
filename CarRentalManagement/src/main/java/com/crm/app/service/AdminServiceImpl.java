@@ -98,31 +98,7 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 
-	@Override
-	public int saveDriver(Driver driver) {
-		// TODO Auto-generated method stub
-		if(driverRepo.save(driver) != null) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
 
-	@Override
-	public Driver getDriverById(Long id) {
-		// TODO Auto-generated method stub
-		return driverRepo.getById(id);
-	}
-
-
-	@Override
-	public void deleteDriver(Long id) {
-		// TODO Auto-generated method stub
-		driverRepo.deleteById(id);
-		
-		
-	}
 
 	@Override
 	public List<Driver> getAllDrivers() {
@@ -144,19 +120,6 @@ public class AdminServiceImpl implements AdminService{
 		bookCarRepo.save(bookCar);
 	}
 
-	@Override
-	public List<BookDriver> getAllDriverBookings() {
-		// TODO Auto-generated method stub
-		return bookDriverRepo.findAll();
-	}
-
-	@Override
-	public void confirmDriverBooking(Long id) {
-		// TODO Auto-generated method stub
-		BookDriver bookDriver = bookDriverRepo.findBookDriverById(id);
-		bookDriver.setStatus("confirmed");
-		bookDriverRepo.save(bookDriver);
-	}
 
 	@Override
 	public List<Feedback> getFeedbacks() {
@@ -180,6 +143,12 @@ public class AdminServiceImpl implements AdminService{
 	public void saveCoupon(Coupon coupon) {
 		// TODO Auto-generated method stub
 		couponRepo.save(coupon);
+	}
+
+	@Override
+	public List<BookDriver> getAllDriverBookings() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getAllDriverBookings'");
 	}
 
 	

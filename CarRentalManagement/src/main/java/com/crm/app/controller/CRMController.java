@@ -143,7 +143,7 @@ public class CRMController {
 	
 	@PostMapping("/validateForgotPassword")
 	public String validatePassword(@ModelAttribute("user") User user, @RequestParam("securityQuestion") String securityQuestion,
-			@RequestParam("securityAnswer") String securityAnswer,
+			 @RequestParam("securityAnswer") String securityAnswer,
 			Model model,RedirectAttributes redirectAttrs)
 	{
 		System.out.println("forgot password**************************************** ");
