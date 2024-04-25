@@ -1,6 +1,8 @@
 package com.crm.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.crm.app.model.BookCar;
 import com.crm.app.model.BookDriver;
 import com.crm.app.model.Car;
+import com.crm.app.model.Coupon;
 import com.crm.app.model.Driver;
 import com.crm.app.model.Feedback;
 import com.crm.app.model.Payment;
+import com.crm.app.model.Rating;
 import com.crm.app.model.User;
 import com.crm.app.service.AdminService;
 import com.crm.app.service.UserService;
@@ -265,6 +269,14 @@ public class UserController {
 		model.addAttribute("amountPaid",bookcar.getTotalAmount());
 		model.addAttribute("userEmail", userdata.getEmail());
 		
+		List<Coupon> couponList = adminService.getAllCoupons();
+		
+		List<String> couponCodes = couponList.stream().map(c -> c.getCouponCode()).collect(Collectors.toList());
+		
+		List<String> couponAmount = couponList.stream().map(c -> c.getAmount()).collect(Collectors.toList());
+		
+		model.addAttribute("couponCodes", couponCodes);
+		model.addAttribute("couponAmount", couponAmount);
         model.addAttribute("sessionMessages", messages);
 		
 		return "user/payment";
@@ -288,7 +300,14 @@ public class UserController {
 		model.addAttribute("bookId", bookdriver.getId());
 		model.addAttribute("amountPaid",bookdriver.getTotalAmount());
 		model.addAttribute("userEmail", userdata.getEmail());
+		List<Coupon> couponList = adminService.getAllCoupons();
 		
+		List<String> couponCodes = couponList.stream().map(c -> c.getCouponCode()).collect(Collectors.toList());
+		
+		List<String> couponAmount = couponList.stream().map(c -> c.getAmount()).collect(Collectors.toList());
+		
+		model.addAttribute("couponCodes", couponCodes);
+		model.addAttribute("couponAmount", couponAmount);
         model.addAttribute("sessionMessages", messages);
 		
 		return "user/payment";
@@ -306,7 +325,6 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-        payment.setCoupon("No Coupon");
         payment.setType("car");
         
         userService.savePayment(payment);
@@ -326,15 +344,37 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-        payment.setCoupon("No Coupon");
+        
+        
         payment.setType("driver");
         
-        userService.savePayment(payment);
+        userService.saveDriverPayment(payment);
         
         return "redirect:/user";
 	}
 	
-
+	@GetMapping("/addReview/{id}")
+	public String addReview(Model model, HttpSession session, @PathVariable(name="id") Long id) {
+		
+		
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		User userdata = userService.findUser(messages.get(0));
+        model.addAttribute("sessionMessages", messages);
+		Rating rating = new Rating(); 
+		model.addAttribute("rating", rating);
+		model.addAttribute("driverId",id);
+		
+		model.addAttribute("userEmail", userdata.getEmail());
+		
+        model.addAttribute("sessionMessages", messages);
+		
+		return "user/addreview";
+	}
 	
 	@GetMapping("/addFeedback/{id}")
 	public String addFeedback(Model model, HttpSession session, @PathVariable(name="id") Long id) {
@@ -359,7 +399,24 @@ public class UserController {
 		return "user/addfeedback";
 	}
 	
+	@PostMapping("/saveReview")
+	public String saveReview(@ModelAttribute("rating") Rating rating, Model model, HttpSession session) {
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
 
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		User userdata = userService.findUser(messages.get(0));
+        model.addAttribute("sessionMessages", messages);
+        
+    
+        
+        userService.saveReview(rating);
+        
+        return "redirect:/user";
+	}
 	
 	@PostMapping("/saveFeedback")
 	public String saveFeedback(@ModelAttribute("feedback") Feedback feedback, Model model, HttpSession session) {
@@ -373,7 +430,7 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-       
+    
         
         userService.saveFeedback(feedback);
         

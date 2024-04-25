@@ -17,17 +17,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "feedbacks")
-public class Feedback {
+@Table(name = "rating")
+public class Rating {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	private String userEmail;
-	private String carId;
-	private String description;
+	private String driverId;
 	private String rating;
-
+	private String description;
 	
 	
 

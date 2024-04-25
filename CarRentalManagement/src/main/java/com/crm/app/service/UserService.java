@@ -8,6 +8,7 @@ import com.crm.app.model.Car;
 import com.crm.app.model.Driver;
 import com.crm.app.model.Feedback;
 import com.crm.app.model.Payment;
+import com.crm.app.model.Rating;
 import com.crm.app.model.User;
 
 public interface UserService {
@@ -48,7 +49,11 @@ public interface UserService {
 
 	List<BookDriver> getUserDriverBookings(String email);
 
+	void saveReview(Rating rating);
+
 	void saveFeedback(Feedback feedback);
+
+	void saveDriverPayment(Payment payment);
 	
 	
 	

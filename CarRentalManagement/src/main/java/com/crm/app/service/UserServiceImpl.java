@@ -18,6 +18,7 @@ import com.crm.app.dao.CarRepo;
 import com.crm.app.dao.DriverRepo;
 import com.crm.app.dao.FeedbackRepo;
 import com.crm.app.dao.PaymentRepo;
+import com.crm.app.dao.RatingRepo;
 import com.crm.app.dao.UserRepo;
 import com.crm.app.model.BookCar;
 import com.crm.app.model.BookDriver;
@@ -25,6 +26,7 @@ import com.crm.app.model.Car;
 import com.crm.app.model.Driver;
 import com.crm.app.model.Feedback;
 import com.crm.app.model.Payment;
+import com.crm.app.model.Rating;
 import com.crm.app.model.User;
 
 
@@ -50,6 +52,8 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private DriverRepo driverRepo;
 	
+	@Autowired
+	private RatingRepo ratingRepo;
 	@Autowired
 	private FeedbackRepo feedbackRepo;
 
@@ -239,6 +243,16 @@ public class UserServiceImpl implements UserService{
 		bookCarRepo.save(bookCar);
 		
 	}
+	
+	@Override
+	public void saveDriverPayment(Payment payment) {
+		// TODO Auto-generated method stub
+		paymentRepo.save(payment);
+		BookDriver bookDriver = bookDriverRepo.findBookDriverById(Long.parseLong(payment.getBookingId()));
+		bookDriver.setStatus("payment_completed");
+		bookDriverRepo.save(bookDriver);
+		
+	}
 
 	@Override
 	public List<BookCar> getUserCarBookings(String email) {
@@ -318,11 +332,17 @@ public class UserServiceImpl implements UserService{
 		return bookDriverRepo.findAll().stream().filter(bc -> bc.getUserEmail().equals(email)).collect(Collectors.toList());
 	}
 
-
+	@Override
+	public void saveReview(Rating rating) {
+		// TODO Auto-generated method stub
+		ratingRepo.save(rating);
+		
+	}
 
 	@Override
 	public void saveFeedback(Feedback feedback) {
 		// TODO Auto-generated method stub
 		feedbackRepo.save(feedback);
 	}
+
 }
