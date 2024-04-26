@@ -70,7 +70,7 @@ public class UserController {
 		}
         model.addAttribute("sessionMessages", messages);
         
-        List<BookDriver> driverList = adminService.getAllDriverBookings();
+        List<Driver> driverList = adminService.getAllDrivers();
         
         model.addAttribute("drivers", driverList);
 
@@ -411,7 +411,7 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-       
+    
         
         userService.saveReview(rating);
         
@@ -430,7 +430,7 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-       
+    
         
         userService.saveFeedback(feedback);
         

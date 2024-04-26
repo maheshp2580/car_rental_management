@@ -166,9 +166,68 @@ public class AdminController {
 
 		return "admin/driver";
 	}
+	
+	@PostMapping("/saveDriver")
+	public String saveDriver(@ModelAttribute("driver") Driver driver, Model model, HttpSession session, @RequestParam("image") MultipartFile driverImage)
+	{
+			try {
+				driver.setPhoto(Base64.getEncoder().encodeToString(driverImage.getBytes()));
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			driver.setRating("0");
+			
+			adminService.saveDriver(driver);
+		
+			return "redirect:/driver";
+		
+	}
+	
+	@GetMapping("/editDriver/{id}")
+	public String editDriver(Model model, HttpSession session, @PathVariable(name="id") Long id) {
+		
+		
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		Driver driver = adminService.getDriverById(id);
+		model.addAttribute("driver", driver);
+		
+        model.addAttribute("sessionMessages", messages);
+		
+		return "admin/updatedriver";
+	}
+	
+	@PostMapping("/deleteDriver/{id}")
+	public String deleteDriver(@PathVariable(name="id") Long id)
+	{
+		adminService.deleteDriver(id);
+		
+		return "redirect:/driver";
+	}
+	
+	@GetMapping("/carbookings")
+	public String carbookings(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
 
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<BookCar> carbookings = adminService.getAllCarBookings();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("carbookings", carbookings);
 
-
+		return "admin/carbookings";
+	}
 	
 	@GetMapping("/confirmCarBooking/{id}")
 	public String confirmCarBooking(@PathVariable(name="id") Long id)
@@ -194,6 +253,14 @@ public class AdminController {
         model.addAttribute("driverbookings", driverbookings);
 
 		return "admin/driverbookings";
+	}
+	
+	@GetMapping("/confirmDriverBooking/{id}")
+	public String confirmDriverBooking(@PathVariable(name="id") Long id)
+	{
+		adminService.confirmDriverBooking(id);
+		
+		return "redirect:/driverbookings";
 	}
 	
 	@GetMapping("/driverratings")
