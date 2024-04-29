@@ -243,6 +243,16 @@ public class UserServiceImpl implements UserService{
 		bookCarRepo.save(bookCar);
 		
 	}
+	
+	@Override
+	public void saveDriverPayment(Payment payment) {
+		// TODO Auto-generated method stub
+		paymentRepo.save(payment);
+		BookDriver bookDriver = bookDriverRepo.findBookDriverById(Long.parseLong(payment.getBookingId()));
+		bookDriver.setStatus("payment_completed");
+		bookDriverRepo.save(bookDriver);
+		
+	}
 
 	@Override
 	public List<BookCar> getUserCarBookings(String email) {
@@ -334,4 +344,5 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		feedbackRepo.save(feedback);
 	}
+
 }

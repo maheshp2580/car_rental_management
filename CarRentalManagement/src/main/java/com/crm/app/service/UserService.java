@@ -52,6 +52,8 @@ public interface UserService {
 	void saveReview(Rating rating);
 
 	void saveFeedback(Feedback feedback);
+
+	void saveDriverPayment(Payment payment);
 	
 	
 	

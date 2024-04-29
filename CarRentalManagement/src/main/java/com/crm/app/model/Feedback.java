@@ -24,7 +24,7 @@ public class Feedback {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	private String userEmail;
-	private String bookingId;
+	private String carId;
 	private String description;
 	private String rating;
 

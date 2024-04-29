@@ -1,6 +1,8 @@
 package com.crm.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.crm.app.model.BookCar;
 import com.crm.app.model.BookDriver;
 import com.crm.app.model.Car;
+import com.crm.app.model.Coupon;
 import com.crm.app.model.Driver;
 import com.crm.app.model.Feedback;
 import com.crm.app.model.Payment;
@@ -95,7 +98,27 @@ public class UserController {
 		return "user/usercarbookings";
 	}
 	
+	@GetMapping("/myDriverBookings")
+	public String myDriverBookings(@ModelAttribute("user") User user, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
 
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+        model.addAttribute("sessionMessages", messages);
+    	User userdata = userService.findUser(messages.get(0));
+        model.addAttribute("sessionMessages", messages);
+        
+        List<BookDriver> userDriverBookings = userService.getUserDriverBookings(userdata.getEmail());
+        
+        model.addAttribute("bookings", userDriverBookings);
+
+		return "user/userdriverbookings";
+	}
+	
 	@PostMapping("/applyFilters")
 	public String applyFilters(Model model, HttpSession session, @RequestParam("company") String company,
 			 @RequestParam("type") String type, @RequestParam("seats") String seats) {
@@ -246,6 +269,14 @@ public class UserController {
 		model.addAttribute("amountPaid",bookcar.getTotalAmount());
 		model.addAttribute("userEmail", userdata.getEmail());
 		
+		List<Coupon> couponList = adminService.getAllCoupons();
+		
+		List<String> couponCodes = couponList.stream().map(c -> c.getCouponCode()).collect(Collectors.toList());
+		
+		List<String> couponAmount = couponList.stream().map(c -> c.getAmount()).collect(Collectors.toList());
+		
+		model.addAttribute("couponCodes", couponCodes);
+		model.addAttribute("couponAmount", couponAmount);
         model.addAttribute("sessionMessages", messages);
 		
 		return "user/payment";
@@ -269,7 +300,14 @@ public class UserController {
 		model.addAttribute("bookId", bookdriver.getId());
 		model.addAttribute("amountPaid",bookdriver.getTotalAmount());
 		model.addAttribute("userEmail", userdata.getEmail());
+		List<Coupon> couponList = adminService.getAllCoupons();
 		
+		List<String> couponCodes = couponList.stream().map(c -> c.getCouponCode()).collect(Collectors.toList());
+		
+		List<String> couponAmount = couponList.stream().map(c -> c.getAmount()).collect(Collectors.toList());
+		
+		model.addAttribute("couponCodes", couponCodes);
+		model.addAttribute("couponAmount", couponAmount);
         model.addAttribute("sessionMessages", messages);
 		
 		return "user/payment";
@@ -287,7 +325,6 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-        payment.setCoupon("No Coupon");
         payment.setType("car");
         
         userService.savePayment(payment);
@@ -307,10 +344,11 @@ public class UserController {
 		User userdata = userService.findUser(messages.get(0));
         model.addAttribute("sessionMessages", messages);
         
-        payment.setCoupon("No Coupon");
+        
+        
         payment.setType("driver");
         
-        userService.savePayment(payment);
+        userService.saveDriverPayment(payment);
         
         return "redirect:/user";
 	}
