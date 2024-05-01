@@ -79,6 +79,7 @@
                         <a href="/user" class="nav-item nav-link">Home</a>
                         <a href="/drivers" class="nav-item nav-link">Drivers</a>
                          <a href="/myCarBookings" class="nav-item nav-link active">My Car Bookings</a>
+                       <a href="/myDriverBookings" class="nav-item nav-link active">My Driver Bookings</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
@@ -103,6 +104,7 @@
           <th scope="col">Total Amount</th>
           <th scope="col">Address</th>
           <th scope="col">Status</th>
+          <th scope="col">Feedback</th>
          
         </tr>
       </thead>
@@ -116,6 +118,10 @@
           <td th:text="${car.totalAmount}"></td>
           <td th:text="${car.address}"></td>
           <td th:text="${car.status}"></td>
+          
+          <td>
+          <a th:href="@{'/addFeedback/' + ${car.carId}}" class="btn btn-success px-3" href="">Add Feedback</a>
+          </td>
          
          
         </tr>

@@ -17,20 +17,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "payments")
-public class Payment {
+@Table(name = "coupons")
+public class Coupon {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String userEmail;
-	private String type;
-	private String bookingId;
-	private String cardNumber;
-	private String cvv;
-	private String cardName;
-	private String coupon;
-	private String amountPaid;
+	private String couponCode;
+	private String title;
+	private String amount;
 	
 	
 

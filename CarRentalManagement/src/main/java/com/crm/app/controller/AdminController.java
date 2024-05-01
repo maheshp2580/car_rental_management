@@ -22,8 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crm.app.model.BookCar;
+import com.crm.app.model.BookDriver;
 import com.crm.app.model.Car;
+import com.crm.app.model.Coupon;
 import com.crm.app.model.Driver;
+import com.crm.app.model.Feedback;
+import com.crm.app.model.Rating;
 import com.crm.app.model.User;
 import com.crm.app.service.AdminService;
 
@@ -268,4 +272,93 @@ public class AdminController {
 		return "redirect:/carbookings";
 	}
 	
+	@GetMapping("/driverbookings")
+	public String driverbookings(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<BookDriver> driverbookings = adminService.getAllDriverBookings();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("driverbookings", driverbookings);
+
+		return "admin/driverbookings";
+	}
+	
+	@GetMapping("/confirmDriverBooking/{id}")
+	public String confirmDriverBooking(@PathVariable(name="id") Long id)
+	{
+		adminService.confirmDriverBooking(id);
+		
+		return "redirect:/driverbookings";
+	}
+	
+	@GetMapping("/driverratings")
+	public String driverratings(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<Rating> ratings = adminService.getAllRatings();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("ratings", ratings);
+
+		return "admin/viewratings";
+	}
+	
+	@GetMapping("/carfeedbacks")
+	public String carfeedbacks(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<Feedback> carfeedbacks = adminService.getFeedbacks();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("carfeedbacks", carfeedbacks);
+
+		return "admin/viewfeedbacks";
+	}
+	
+	@GetMapping("/coupons")
+	public String coupons(@ModelAttribute("car") Car car, Model model, HttpSession session)
+	{
+		@SuppressWarnings("unchecked")
+        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+
+		if(messages == null) {
+			model.addAttribute("errormsg", "Session Expired. Please Login Again");
+			return "home/error";
+		}
+		List<Coupon> couponList = adminService.getAllCoupons();
+		
+        model.addAttribute("sessionMessages", messages);
+        model.addAttribute("coupons", couponList);
+
+		return "admin/coupons";
+	}
+	
+	@PostMapping("/saveCoupon")
+	public String saveCoupon(@ModelAttribute("coupon") Coupon coupon, Model model, HttpSession session)
+	{
+			
+			adminService.saveCoupon(coupon);
+		
+			return "redirect:/coupons";
+		
+	}
 }

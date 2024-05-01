@@ -79,6 +79,7 @@
                         <a href="/user" class="nav-item nav-link active">Home</a>
                         <a href="/drivers" class="nav-item nav-link">Drivers</a>
                          <a href="/myCarBookings" class="nav-item nav-link">My Car Bookings</a>
+                       <a href="/myDriverBookings" class="nav-item nav-link active">My Driver Bookings</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
@@ -107,6 +108,13 @@
 			    <label>Your Email</label>
 			     <input type="text" class="form-control" name="userEmail" th:value="${userEmail}" required readonly="readonly"/>
 			    </div>
+			    <div class="form-group" id="coupon-code">
+	   			<label>Coupon Code</label>
+      			<input type="text" class="form-control" id="coupon" name="coupon"></input>
+      			<br>
+                  <button type="button" style="background-color:green;float:right;padding:5px;border:none" onclick="checkCoupon()">Apply</button>
+                  <p id="status"></p>
+                </div>
 			    <div class="form-group">
 			    <label>Card Number</label>
 			     <input type="number" class="form-control" name="cardNumber" required/>
@@ -122,7 +130,7 @@
 
 	              <div class="form-group">
 	              <label>Amount To be Paid</label>
-	                <input type="text" class="form-control" id="amountPaid"  name="amountPaid" th:value="${amountPaid}" required readonly="readonly"/>
+	                <input type="number" class="form-control" id="amountPaid"  name="amountPaid" th:value="${amountPaid}" required readonly="readonly"/>
 	              </div>
 	              
 	           
@@ -254,6 +262,24 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+<script th:inline="javascript">
+var couponCodes = /*[[${couponCodes}]]*/ 'default';
+var couponAmount = /*[[${couponAmount}]]*/ 'default';
+function checkCoupon(){
+	console.log(couponCodes);
+	console.log(couponAmount);
+	if(couponCodes.includes(document.getElementById('coupon').value)){
+		var index = couponCodes.indexOf(document.getElementById('coupon').value);
+		var cost = document.getElementById('amountPaid').value;
+    	cost = cost - parseInt(couponAmount[index]);
+    	document.getElementById("amountPaid").value = cost;
+	
+	}
+   else{
+    	document.getElementById("status").innerHTML = "Invalid Coupon";
+    }
+}
+</script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

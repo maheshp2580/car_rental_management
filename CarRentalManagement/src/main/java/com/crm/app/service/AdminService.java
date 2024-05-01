@@ -2,8 +2,13 @@ package com.crm.app.service;
 
 import java.util.List;
 
+import com.crm.app.model.BookCar;
+import com.crm.app.model.BookDriver;
 import com.crm.app.model.Car;
+import com.crm.app.model.Coupon;
 import com.crm.app.model.Driver;
+import com.crm.app.model.Feedback;
+import com.crm.app.model.Rating;
 
 
 
@@ -20,15 +25,31 @@ public interface AdminService {
 
 	int updateCar(Car car);
 
-	void saveDriver(Driver driver);
+	int saveDriver(Driver driver);
 
 	Driver getDriverById(Long id);
 
-	void updateDriver(Driver driver);
+	int updateDriver(Driver driver);
 
 	void deleteDriver(Long id);
 
 	List<Driver> getAllDrivers();
+
+	List<BookCar> getAllCarBookings();
+
+	void confirmCarBooking(Long id);
+
+	List<BookDriver> getAllDriverBookings();
+
+	void confirmDriverBooking(Long id);
+
+	List<Feedback> getFeedbacks();
+
+	List<Rating> getAllRatings();
+
+	List<Coupon> getAllCoupons();
+
+	void saveCoupon(Coupon coupon);
 
 
 	

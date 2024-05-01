@@ -9,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -78,6 +78,8 @@
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/user" class="nav-item nav-link active">Home</a>
                         <a href="/drivers" class="nav-item nav-link">Drivers</a>
+                        <a href="/myCarBookings" class="nav-item nav-link">My Car Bookings</a>
+                         <a href="/myDriverBookings" class="nav-item nav-link active">My Driver Bookings</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
@@ -158,7 +160,7 @@
                         </div>
                         <a class="btn btn-primary px-3" href=""> <th:block  th:text="${car.pricePerDay}">
      						</th:block>/Day</a>
-     						 <a class="btn btn-success px-3" href="">Book</a>
+     						 <a th:href="@{'/bookCar/' + ${car.Id}}" class="btn btn-success px-3" href="">Book</a>
                     </div>
                 </div>
                 </th:block>
@@ -261,7 +263,7 @@
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

@@ -78,6 +78,8 @@
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/user" class="nav-item nav-link active">Home</a>
                           <a href="/drivers" class="nav-item nav-link">Drivers</a>
+                           <a href="/myCarBookings" class="nav-item nav-link">My Car Bookings</a>
+                       <a href="/myDriverBookings" class="nav-item nav-link active">My Driver Bookings</a>
                         <a href="/profile" class="nav-item nav-link">Profile</a>
                         <a href="/destroy" class="nav-item nav-link">Logout</a>
                     </div>
@@ -86,6 +88,53 @@
         </div>
     </div>
     <!-- Navbar End -->
+    
+     <form class="row" action="#" th:action=@{/filterDrivers} method="post">
+    <div class="container-fluid bg-white pt-3 px-lg-5">
+        <div class="row mx-n2">
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <select class="custom-select px-4 mb-3" style="height: 50px;" name="experience">
+                    <option value="">Select Experience</option>
+                     <option value="1">1+</option>
+				    <option value="2">2+</option>
+				    <option value="3">3+</option>
+				    <option value="4">4+</option>
+				    <option value="5">5+</option>
+				    <option value="10">10+</option>
+				    <option value="15">15+</option>
+				    <option value="20">20+</option>
+				    
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <select class="custom-select px-4 mb-3" style="height: 50px;" name="rating">
+                    <option value="">Select Rating</option>
+			    <option value="1">1+</option>
+			    <option value="2">2+</option>
+			     <option value="3">3+</option>
+			     <option value="4">4+</option>
+			     <option value="5">5</option>
+                </select>
+            </div>
+            
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <select class="custom-select px-4 mb-3" style="height: 50px;" name="price">
+                    <option value="">Select Price Per Day</option>
+                    <option value="500"><=500</option>
+                    <option value="1000"><=1000</option>
+                    <option value="2000"><=2000</option>
+                    <option value="3000"><=3000</option>
+                    <option value="4000"><=4000</option>
+                    <option value="4000"><=5000</option>
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
+            </div>
+        </div>
+    </div>
+            </form>
+    
 
 <!-- Rent A Car Start -->
     <div class="container-fluid py-5">
@@ -117,7 +166,7 @@
                         </div>
                         <a class="btn btn-primary px-3" href=""> <th:block  th:text="${driver.pricePerDay}">
      						</th:block>/Day</a>
-     						 <a class="btn btn-success px-3" href="">Book</a>
+     						 <a th:href="@{'/bookDriver/' + ${driver.Id}}" class="btn btn-success px-3">Book</a>
                     </div>
                 </div>
                 </th:block>
