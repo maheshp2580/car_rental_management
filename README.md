@@ -2,7 +2,7 @@
 # Car Rental Management System
 
 ## Description
-Our product, named "Car Rental Management System," provides customers with superior vehicle rental experiences and assists rental service staff in managing their operations efficiently.
+Our product, named "Car Rental Management System," provides customers with vehicle rental experiences and assists rental service staff in managing their operations efficiently.
 
 ## Architecture
 Below is the architecture diagram of the Car Rental Management System:
