@@ -54,5 +54,3 @@ This is an open-source project, and contributions are welcome. To contribute:
 ## Acknowledgments
 Developed by Anirudh Kathikar, Bhavana Vasireddy, and Mahesh Pachala.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
