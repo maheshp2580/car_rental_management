@@ -4,13 +4,6 @@
 ## Description
 Our product, named "Car Rental Management System," provides customers with vehicle rental experiences and assists rental service staff in managing their operations efficiently.
 
-## Architecture
-Below is the architecture diagram of the Car Rental Management System:
-![Architecture Diagram](https://github.com/maheshp2580/car_rental_management/blob/main/CarRentalManagement/src/Architecture%20Diagram.jpg?raw=true)
-
-
-
-
 ## Technologies Used
 - **IDEs:** Eclipse, VSCode
 - **Programming Languages:** Java (JDK 8)
@@ -43,6 +36,10 @@ Follow these steps to set up your development environment:
 
 ## Usage
 To use the Car Rental Management System, start the server and navigate to `http://localhost:8080` in your web browser. The application allows you to manage vehicle rentals, customer information, and other related operations.
+
+## Architecture
+Below is the architecture diagram of the Car Rental Management System:
+![Architecture Diagram](https://github.com/maheshp2580/car_rental_management/blob/main/CarRentalManagement/src/Architecture%20Diagram.jpg?raw=true)
 
 ## How to Contribute
 This is an open-source project, and contributions are welcome. To contribute:
