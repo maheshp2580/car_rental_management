@@ -6,6 +6,8 @@ Our product, named "Car Rental Management System," provides customers with vehic
 
 ## Architecture
 Below is the architecture diagram of the Car Rental Management System:
+![Architecture Diagram](https://github.com/maheshp2580/car_rental_management/blob/main/CarRentalManagement/src/Architecture%20Diagram.jpg?raw=true)
+
 
 
 
